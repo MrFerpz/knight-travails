@@ -52,22 +52,28 @@ function knightMoves(start, finish) {
     for (let i = 0; i < availMovesList.length; i++) {
         // add them to the queue and immediately check them
         queue.push(new Node(availMovesList[i]));
-        handleQueue();
+    }
+    handleQueue();
+
+    if (handleQueue() === true) {
+        return moveCount;
     }
 }
 
 // handle the queue
 function handleQueue() {
+    while (queue.length > 1) {
     let current = queue.shift();
     if ((current.x === finishSquare.x) && (current.y === finishSquare.y)) {
         console.log("you found it");
-        return;
-    }
+        return true;
+    }}
 }
     moveCheck(startSquare.availableMoves);
     moveCount++;
-}
+    moveCheck(s)
 
+}
     
     // now I just need a way to keep topping up the queue until it's found
     // then I need to find the number of moves
