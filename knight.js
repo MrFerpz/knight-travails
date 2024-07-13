@@ -72,10 +72,12 @@ function handleQueue() {
     let current = queue.shift();
     // check if it matches the finish square
     if ((current.x === finishSquare.x) && (current.y === finishSquare.y)) {
+        // record the count and path in a nice console log
         console.log(`You found it in ${current.moveCount} moves!`);
         console.log(`Here is your path: ${current.path}`);
         return true;
     } else {
+        // add the next moves to the back of the queue, add one to the count, and record the path
         for (let i = 0; i < current.availableMoves.length; i++) {
         queue.push(new Node(current.availableMoves[i], current.moveCount + 1, current.path.concat(` ${current.availableMoves[i]}`)));
     }
@@ -85,10 +87,6 @@ return false;
 }
     moveCheck(startSquare.availableMoves);
 }
-    
-    // now I just need a way to keep topping up the queue until it's found // tick
-    // then I need to find the number of moves
-    // then I need to console log it in a nice way with the route and the number
-
 
 knightMoves([2,0],[7,0]);
+knightMoves([4,1],[6,6]);
