@@ -12,7 +12,7 @@ let board = [
 
 // make a node class to store coordinates and available 
 class Node {
-    constructor([x, y]) {
+    constructor([x, y], moveCount = 0, path = [[x, y]]) {
         this.x = x;
         this.y = y;
         this.availableMoves = 
@@ -26,6 +26,8 @@ class Node {
                 [x - 1, y + 2],
                 [x - 1, y - 2]
             ].filter(move => this.isValidMove(move));
+        this.moveCount = moveCount;
+        this.path = path;
     }
 
     isValidMove([x, y]) {
@@ -52,31 +54,34 @@ function knightMoves(start, finish) {
     // make nodes for each available move
     for (let i = 0; i < movesList.length; i++) {
         // add them to the queue
-        queue.push(new Node(movesList[i]));
+        queue.push(new Node(movesList[i], 1, [start,` ${movesList[i]}`]));
     }
 
     // each round
     handleQueue();
 
     // if the final square is found, return the amount of moves taken
-    if (handleQueue() === true) {
-        return moveCount;
+    if (handleQueue()) {
+        return true;
             }
         }
 
 // handle the queue
 function handleQueue() {
-    while (queue.length > 1) {
+    while (queue.length > 0) {
     let current = queue.shift();
+    // check if it matches the finish square
     if ((current.x === finishSquare.x) && (current.y === finishSquare.y)) {
-        console.log("you found it");
+        console.log(`You found it in ${current.moveCount} moves!`);
+        console.log(`Here is your path: ${current.path}`);
         return true;
     } else {
         for (let i = 0; i < current.availableMoves.length; i++) {
-        queue.push(new Node(current.availableMoves[i]));
+        queue.push(new Node(current.availableMoves[i], current.moveCount + 1, current.path.concat(` ${current.availableMoves[i]}`)));
     }
 }
 }
+return false;
 }
     moveCheck(startSquare.availableMoves);
 }
@@ -86,4 +91,4 @@ function handleQueue() {
     // then I need to console log it in a nice way with the route and the number
 
 
-knightMoves([2,0],[0,1]);
+knightMoves([2,0],[7,0]);
