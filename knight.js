@@ -44,21 +44,25 @@ function knightMoves(start, finish) {
     let startSquare = new Node(start);
     let finishSquare = new Node(finish);
 
+    // quick check everything works
     console.log(startSquare);
     console.log(startSquare.availableMoves)
 
-    function moveCheck(availMovesList) {
+    function moveCheck(movesList) {
     // make nodes for each available move
-    for (let i = 0; i < availMovesList.length; i++) {
-        // add them to the queue and immediately check them
-        queue.push(new Node(availMovesList[i]));
+    for (let i = 0; i < movesList.length; i++) {
+        // add them to the queue
+        queue.push(new Node(movesList[i]));
     }
+
+    // each round
     handleQueue();
 
+    // if the final square is found, return the amount of moves taken
     if (handleQueue() === true) {
         return moveCount;
-    }
-}
+            }
+        }
 
 // handle the queue
 function handleQueue() {
@@ -67,15 +71,17 @@ function handleQueue() {
     if ((current.x === finishSquare.x) && (current.y === finishSquare.y)) {
         console.log("you found it");
         return true;
-    }}
+    } else {
+        for (let i = 0; i < current.availableMoves.length; i++) {
+        queue.push(new Node(current.availableMoves[i]));
+    }
+}
+}
 }
     moveCheck(startSquare.availableMoves);
-    moveCount++;
-    moveCheck(s)
-
 }
     
-    // now I just need a way to keep topping up the queue until it's found
+    // now I just need a way to keep topping up the queue until it's found // tick
     // then I need to find the number of moves
     // then I need to console log it in a nice way with the route and the number
 
